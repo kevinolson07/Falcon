@@ -17,6 +17,7 @@ def pwm(freq,liftoff_freq, touchdown_freq):
     for x in range(freq):
         if freq >= liftoff_freq and freq <= touchdown_freq:
              GPIO.output(17,GPIO.HIGH)
+             print("1")
         else:
             GPIO.output(18,GPIO.LOW)
         delay = (1/freq)*.5
@@ -52,6 +53,19 @@ except ValueError:
     print("Value you entered is not of value int.")
     touchdown_freq = int(input("Enter touchdown frequency:"))
 
+try:   
+    cycles = int(input("Enter number of cycles:"))
+except ValueError:
+    print("Value you entered is not of value int.")
+    cycles = int(input("Enter number of cycles:"))
 
-for i in range(min_freq,max_freq):
-    pwm(i,liftoff_freq, touchdown_freq)
+try:   
+    cycle_delay = int(input("Enter delay between cycles:"))
+except ValueError:
+    print("Value you entered is not of value int.")
+    cycle_delay = int(input("Enter delay between cycles (seconds):"))
+
+for a in range(cycles):
+    for i in range(min_freq,max_freq):
+        pwm(i,liftoff_freq, touchdown_freq)
+    time.sleep(cycle_delay)
