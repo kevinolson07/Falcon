@@ -5,10 +5,12 @@ spi = spidev.SpiDev()
 spi.open(0,0)
 spi.max_speed_hz = 976000
 
+# Hex values for equivalant resistance
 one = 0x0D
 two = 0x16
 three = 0x1C
 four = 0x23
+                                                                                                                                                                        
 
 def write_pot(input):
     msb = 0x13
@@ -28,7 +30,7 @@ def selection(loop):
             time.sleep(dwell_time)
             write_pot(four)
             time.sleep(dwell_time)
-            break
+            
         if loop == 2:
             pot_value = int(input("choose 1 (4mA), 2 (10mA), 3 (14mA), or 4 (20mA):"))
             if pot_value == 1:
@@ -40,7 +42,8 @@ def selection(loop):
             elif pot_value == 4:
                 write_pot(four)
         else:
-            continue
+            print("Invalid value. Try agian.")
+            question()
         x = 1 + x
 
         
@@ -48,11 +51,12 @@ def question():
 
     loop = int(input("Type \'1\' for auto: \nType \'2\' for manual: "))
     selection(loop)
+
     
 
 while True:
-    question()
-        
+        question()
+   
     
     # write_pot(0xFA)
     
