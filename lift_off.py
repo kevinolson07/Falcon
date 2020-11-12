@@ -14,12 +14,13 @@ duty = .5
 
 
 def pwm(freq,liftoff_freq, touchdown_freq):
+    freq +=1
     for x in range(freq):
-        if freq >= liftoff_freq and freq <= touchdown_freq:
+        if freq >= liftoff_freq and freq <= touchdown_freq-1:
              GPIO.output(17,GPIO.HIGH)
              print("1")
         else:
-            GPIO.output(18,GPIO.LOW)
+            GPIO.output(17,GPIO.LOW)
         delay = (1/freq)*.5
         GPIO.output(18,GPIO.HIGH)
         print("HIGH")
@@ -27,6 +28,7 @@ def pwm(freq,liftoff_freq, touchdown_freq):
         GPIO.output(18,GPIO.LOW)
         print("LOW")
         time.sleep(delay)
+        print(freq)
 
 
 try:   
