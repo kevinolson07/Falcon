@@ -61,7 +61,7 @@ def settings(channel_select, mode, bank_select):
                 print("Invalid Value")
                 mode_select()
         if mode == 2:
-            pot_value = int(input("choose 1 (4mA), 2 (10mA), 3 (14mA), or 4 (20mA):"))
+            pot_value = int(input("Choose 1 (4mA), 2 (10mA), 3 (14mA), or 4 (20mA):"))
             if pot_value == 1:
                 GPIO.output(channel_select, GPIO.LOW)
                 write_pot(one, bank_select)
@@ -92,7 +92,7 @@ def mode_select():
     x = 1
     while x <= 1:
         try:
-            mode = int(input("Type \'1\' for auto: \nType \'2\' for manual: "))
+            mode = int(input("Type \'1\' for auto or \'2\' for manual: "))
             if mode == 1:
                 x+=1
                 settings(None, mode, None)
@@ -108,8 +108,8 @@ def channel_select(mode):
     i=1
     while i <= 1:
         try:
-            channel_select = int(input("Channel 1 or 2?"))
-            bank_select = int(input("Bank 1 or 2?"))
+            channel_select = int(input("Type \'1\' for channel 1 or \'2\' for channel 2: "))
+            bank_select = int(input("Type \'1\' for bank 1 or \'2\' for bank 2: "))
             if channel_select == 1 and bank_select ==1:
                 channel_select = channel_1
                 bank_select = bank_1
@@ -135,7 +135,7 @@ def channel_select(mode):
                 settings(channel_select,mode,bank_select)
 
             else:
-                print("sorry, try again ")
+                print("Bad combination, try again ")
         except ValueError:
             print("Invalid Value1")
     
