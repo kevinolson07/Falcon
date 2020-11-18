@@ -4,7 +4,9 @@ import RPi.GPIO as GPIO
 
 channel_1 = 16
 channel_2 = 18
-all_channels = (16,18)
+channel_3 = 22
+channel_4 = 36
+all_channels = (16,18,22,36)
 
 # Hex values for equivalant resistance
 one = 0x0D      #625 Ohms
@@ -19,10 +21,8 @@ spi = spidev.SpiDev()
 spi.open(0,0)
 spi.max_speed_hz = 976000
 GPIO.setmode(GPIO.BOARD)
-GPIO.setup(channel_1,GPIO.OUT)
-GPIO.setup(channel_2,GPIO.OUT)
-GPIO.output(channel_1, GPIO.HIGH)
-GPIO.output(channel_2, GPIO.HIGH)
+GPIO.setup(all_channels,GPIO.OUT)
+GPIO.output(all_channels, GPIO.HIGH)
                                                                                                                                                                         
 def write_pot(input,bank_select):
     msb = bank_select
@@ -58,8 +58,8 @@ def settings(channel_select, mode, bank_select):
                     print("completed auto")
                     x+=1
             except ValueError:
-                print("Invalid Value")
-                mode_select()
+                print("Invalid Value combination")
+                # mode_select()
         if mode == 2:
             pot_value = int(input("Choose 1 (4mA), 2 (10mA), 3 (14mA), or 4 (20mA):"))
             if pot_value == 1:
@@ -96,7 +96,7 @@ def mode_select():
             if mode == 1:
                 x+=1
                 settings(None, mode, None)
-            if mode == 2:
+            elif mode == 2:
                 x+=1
                 channel_select(mode)
             else:
@@ -108,7 +108,7 @@ def channel_select(mode):
     i=1
     while i <= 1:
         try:
-            channel_select = int(input("Type \'1\' for channel 1 or \'2\' for channel 2: "))
+            channel_select = int(input("Type \'1\' for channel 1 or \'2\' for channel 2 or \'3\' for channel 3 or \'4\' for channel 4: "))
             bank_select = int(input("Type \'1\' for bank 1 or \'2\' for bank 2: "))
             if channel_select == 1 and bank_select ==1:
                 channel_select = channel_1
@@ -116,20 +116,42 @@ def channel_select(mode):
                 i+=1
                 settings(channel_select,mode, bank_select)
 
-            if channel_select == 1 and bank_select == 2:
+            elif channel_select == 1 and bank_select == 2:
                 channel_select = channel_1
                 bank_select = bank_2
                 i+=1
                 settings(channel_select,mode,bank_select)
 
-            if channel_select == 2 and bank_select == 1:
+            elif channel_select == 2 and bank_select == 1:
                 channel_select = channel_2
                 bank_select = bank_1
                 i+=1
                 settings(channel_select,mode,bank_select)
 
-            if channel_select == 2 and bank_select == 2:
+            elif channel_select == 2 and bank_select == 2:
                 channel_select = channel_2
+                bank_select = bank_2
+                i+=1
+                settings(channel_select,mode,bank_select)
+            elif channel_select == 3 and bank_select == 1:
+                channel_select = channel_3
+                bank_select = bank_1
+                i+=1
+                settings(channel_select,mode,bank_select)
+
+            elif channel_select == 3 and bank_select == 2:
+                channel_select = channel_3
+                bank_select = bank_2
+                i+=1
+                settings(channel_select,mode,bank_select)
+            elif channel_select == 4 and bank_select == 1:
+                channel_select = channel_4
+                bank_select = bank_1
+                i+=1
+                settings(channel_select,mode,bank_select)
+
+            elif channel_select == 4 and bank_select == 2:
+                channel_select = channel_4
                 bank_select = bank_2
                 i+=1
                 settings(channel_select,mode,bank_select)
@@ -137,7 +159,7 @@ def channel_select(mode):
             else:
                 print("Bad combination, try again ")
         except ValueError:
-            print("Invalid Value1")
+            print("Invalid Value")
     
 
 while True:
