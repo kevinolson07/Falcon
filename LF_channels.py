@@ -28,6 +28,7 @@ def write_pot(input,bank_select):
     msb = bank_select
     lsb = input & 0xFF
     spi.xfer([msb,lsb])
+    spi.close()
 
 def settings(channel_select, mode, bank_select):
     x = 1
