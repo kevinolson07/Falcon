@@ -9,10 +9,10 @@ channel_4 = 36
 all_channels = (16,18,22,36)
 
 # Hex values for equivalant resistance
-one = 0x0D      #625 Ohms
+one = 0x10      #625 Ohms
 two = 0x16      #910 Ohms
 three = 0x1C        #1150 Ohms 
-four = 0x23     #1385 Ohms
+four = 0x20     #1385 Ohms
 bank_1 = 0x11
 bank_2 = 0x12
 all_banks = 0x13
