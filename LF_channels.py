@@ -18,13 +18,13 @@ bank_2 = 0x12
 all_banks = 0x13
 
 spi = spidev.SpiDev()
-spi.open(0,0)
 spi.max_speed_hz = 976000
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(all_channels,GPIO.OUT)
 GPIO.output(all_channels, GPIO.HIGH)
                                                                                                                                                                         
 def write_pot(input,bank_select):
+    spi.open(0,0)
     msb = bank_select
     lsb = input & 0xFF
     spi.xfer([msb,lsb])
